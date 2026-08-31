@@ -1,0 +1,5 @@
+server:
+  port: 8002
+valid_access:
+  host: localhost
+  port: 8001
