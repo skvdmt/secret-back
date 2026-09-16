@@ -1,7 +1,7 @@
 openapi: 3.2.0
 $self: https://secret.skvdmt.ru/api/secret/v1/openapi.yaml
 info:
-  title: Секрет.
+  title: Секрет
   summary: Получение секретной информации.
   description: Приложение содержащее API для получения секретной требующее авторизации и предоставление валидного API токена для положительного ответа. Получить токен домупа можно пройдя [аутентификацию](https://secret.skvdmt.ru/api/auth/v1/doc).
   contact:
@@ -34,6 +34,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Text'
+        '401':
+          description: Ошибка аутентификации
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthError'
 components:
   securitySchemes:
     bearerAuth:
@@ -48,5 +54,12 @@ components:
           type: string
           description: Секртная информация.
           example: Текст секрета.
+    AuthError:
+      type: object
+      properties: 
+        message:
+          type: string
+          description: Сообщение об ошибке.
+          example: Authorization Bearer not found
 security:
   - bearerAuth: []

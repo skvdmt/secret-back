@@ -18,5 +18,6 @@ git clone https://github.com/skvdmt/secret-back
 ```
 
 ## Ссылки:
-- [Docker образ](https://hub.docker.com/r/skvdmt/secret-back) — Собраный образ приложения на docker hub.
+- [Docker образ](https://hub.docker.com/r/skvdmt/secret-back-v1) — Собраный образ приложения на docker hub.
+- [Swagger-UI Документация](https://secret.skvdmt.ru/api/secret/v1/doc)
 - [Автор](https://skvdmt.ru) — Дмитрий Скиданов.
