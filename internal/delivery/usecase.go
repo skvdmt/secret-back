@@ -8,4 +8,6 @@ type Usecase interface {
 	Stop(ctx context.Context) error
 	// Секрет.
 	Secret() string
+	// Документация.
+	Documentation(ctx context.Context) (swaggerDoc []byte)
 }

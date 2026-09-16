@@ -72,6 +72,13 @@ func (a *App) Stop(ctx context.Context) error {
 	return nil
 }
 
+// Documentation Документация.
+func (a *App) Documentation(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-Type", "application/yaml")
+	w.WriteHeader(http.StatusOK)
+	w.Write(a.usecase.Documentation(r.Context()))
+}
+
 // Secret Секрет.
 func (a *App) Secret(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(struct {

@@ -46,8 +46,8 @@ jobs:
             docker build \
              --build-arg NAME=${{ github.event.repository.name }} \
              --no-cache \
-             --tag ${{ github.repository }} .
-            docker push ${{ github.repository }}
+             --tag ${{ github.repository }}-v${{ vars.MAJOR_VERSION }} .
+            docker push ${{ github.repository }}-v${{ vars.MAJOR_VERSION }}
           EOF
       - name: Remove sources.
         if: success() || failure()
@@ -73,17 +73,25 @@ jobs:
       - name: Creating and runnig application container.
         run: |
           ssh -i ~/.ssh/github_ed25519 ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} <<EOF
-            docker pull ${{ github.repository }}
-            docker stop ${{ github.event.repository.name }} || true
-            docker rm ${{ github.event.repository.name }} || true
+            docker stop ${{ github.event.repository.name }}-v${{ vars.MAJOR_VERSION }} || true
+            docker rm ${{ github.event.repository.name }}-v${{ vars.MAJOR_VERSION }} || true
+            docker pull ${{ github.repository }}-v${{ vars.MAJOR_VERSION }}
             docker run -d \
               --network ${{ secrets.DOCKER_NETWORK }} \
-              --name ${{ github.event.repository.name }} \
+              --name ${{ github.event.repository.name }}-v${{ vars.MAJOR_VERSION }} \
               --volume ${{ secrets.HOME }}/logs/${{ github.event.repository.name }}:/var/log/${{ github.event.repository.name }} \
               --volume ${{ secrets.HOME }}/certs/valid-access-back:/etc/ssl/certs/valid-access-back \
               --restart unless-stopped \
               --stop-timeout -1 \
-              ${{ github.repository }}
+              ${{ github.repository }}-v${{ vars.MAJOR_VERSION }}
+            docker stop ${{ github.event.repository.name }}-v${{ vars.MAJOR_VERSION }}-doc || true
+            docker rm ${{ github.event.repository.name }}-v${{ vars.MAJOR_VERSION }}-doc || true
+            docker run -d \
+              --name ${{ github.event.repository.name }}-v${{ vars.MAJOR_VERSION }}-doc \
+              --network ${{ secrets.DOCKER_NETWORK }} \
+              --restart unless-stopped \
+              -e SWAGGER_JSON_URL=https://secret.skvdmt.ru/api/secret/v${{ vars.MAJOR_VERSION }}/openapi.yaml \
+              docker.swagger.io/swaggerapi/swagger-ui
           EOF
       - name: Remove SSH key files.
         if: success() || failure()

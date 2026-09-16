@@ -13,4 +13,6 @@ type Delivery interface {
 	Secret(w http.ResponseWriter, r *http.Request)
 	// Авторизация.
 	Authorization(next http.Handler) http.Handler
+	// Документация.
+	Documentation(http.ResponseWriter, *http.Request)
 }

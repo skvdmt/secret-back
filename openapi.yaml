@@ -1,0 +1,52 @@
+openapi: 3.2.0
+$self: https://secret.skvdmt.ru/api/secret/v1/openapi.yaml
+info:
+  title: Секрет.
+  summary: Получение секретной информации.
+  description: Приложение содержащее API для получения секретной требующее авторизации и предоставление валидного API токена для положительного ответа. Получить токен домупа можно пройдя [аутентификацию](https://secret.skvdmt.ru/api/auth/v1/doc).
+  contact:
+    name: Dmitry Skidanov
+    url: https://skvdmt.ru/
+    email: skvdmt@yandex.ru
+  version: 1.0.0
+servers:
+  - url: https://secret.skvdmt.ru/api/secret/v1
+    description: Production
+tags:
+  - name: main
+    summary: Main
+    description: Main tag
+paths:
+  /text:
+    summary: Текст.
+    description: Ручка работы с текстом.
+    get:
+      tags:
+        - main
+      security:
+        - bearerAuth: []
+      summary: Получение текста.
+      description: Запрос требующий предоставления валидного токена доступа с помощью Bearer авторизации для получения корректного ответа.
+      responses:
+        '200':
+          description: Все в порядке
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Text'
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+  schemas:
+    Text:
+      type: object
+      properties: 
+        secret:
+          type: string
+          description: Секртная информация.
+          example: Текст секрета.
+security:
+  - bearerAuth: []

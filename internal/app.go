@@ -147,4 +147,5 @@ func (a *App) stop() {
 // routing Маршрутизация.
 func (a *App) routing() {
 	a.router.Handle("GET /text", a.delivery.Authorization(http.HandlerFunc(a.delivery.Secret)))
+	a.router.HandleFunc("GET /openapi.yaml", a.delivery.Documentation)
 }
