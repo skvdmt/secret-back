@@ -1,5 +1,5 @@
 server:
   port: 8000
 valid_access:
-  host: valid-access-back
+  host: valid-access-back-v1
   port: 8000
