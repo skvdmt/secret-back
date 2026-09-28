@@ -76,12 +76,12 @@ func (a *App) Stop(ctx context.Context) error {
 func (a *App) Documentation(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/yaml")
 	w.WriteHeader(http.StatusOK)
-	w.Write(a.usecase.Documentation(r.Context()))
+	_, _ = w.Write(a.usecase.Documentation(r.Context()))
 }
 
 // Secret Секрет.
-func (a *App) Secret(w http.ResponseWriter, r *http.Request) {
-	json.NewEncoder(w).Encode(struct {
+func (a *App) Secret(w http.ResponseWriter, _ *http.Request) {
+	_ = json.NewEncoder(w).Encode(struct {
 		Secret string `json:"secret"`
 	}{
 		Secret: a.usecase.Secret(),
@@ -98,7 +98,7 @@ func (a *App) Authorization(next http.Handler) http.Handler {
 		auth := r.Header.Get(AUTHORIZATION)
 		if !strings.HasPrefix(auth, BEARER) {
 			w.WriteHeader(http.StatusUnauthorized)
-			json.NewEncoder(w).Encode(struct {
+			_ = json.NewEncoder(w).Encode(struct {
 				Message string `json:"message"`
 			}{
 				Message: fmt.Sprintf("%s %snot found", AUTHORIZATION, BEARER),
@@ -112,7 +112,7 @@ func (a *App) Authorization(next http.Handler) http.Handler {
 		if err != nil {
 			s, _ := status.FromError(err)
 			w.WriteHeader(http.StatusUnauthorized)
-			json.NewEncoder(w).Encode(struct {
+			_ = json.NewEncoder(w).Encode(struct {
 				Message string `json:"message"`
 			}{
 				Message: s.Message(),

@@ -7,7 +7,7 @@ import (
 	"github.com/skvdmt/secret-back/internal/model"
 )
 
-// main Точка входа в приложение.
+// Точка входа в приложение.
 func main() {
 	// Создание глобального экземпляра журнала.
 	var err error

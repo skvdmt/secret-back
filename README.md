@@ -14,7 +14,7 @@ git clone https://github.com/skvdmt/secret-back
 ```
 
 ## Links:
-- [Docker image](https://hub.docker.com/r/skvdmt/secret-back-v1) — Docker image on docker hub.
-- [Example /text](https://secret.skvdmt.ru/api/secret/v1/text)
-- [Swagger-UI Documentation](https://secret.skvdmt.ru/api/secret/v1/doc)
-- [Author](https://skvdmt.ru) — Dmitry Skidanov.
+- [Docker image](https://hub.docker.com/r/skvdmt/secret-back-v1) — Docker image on docker hub
+- [API](https://secret.skvdmt.ru/api/secret/v1/text) — Example /text
+- [API Documentation](https://secret.skvdmt.ru/api/secret/v1/doc) — On Swagger-UI
+- [Dmitry Skidanov](https://skvdmt.ru) — Author

@@ -28,13 +28,13 @@ func NewApp() (*App, error) {
 }
 
 // Stop Остановка.
-func (a *App) Stop(ctx context.Context) error {
+func (a *App) Stop(_ context.Context) error {
 	model.Log.Info.Info("repository layer stopped")
 	return nil
 }
 
 // Swagger Документация.
-func (a *App) Documentation(ctx context.Context) []byte {
+func (a *App) Documentation(_ context.Context) []byte {
 	a.muDocumentation.RLock()
 	defer a.muDocumentation.RUnlock()
 	return a.documentation
