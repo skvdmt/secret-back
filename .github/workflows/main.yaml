@@ -82,6 +82,7 @@ jobs:
             docker run -d \
               --network ${{ secrets.DOCKER_NETWORK }} \
               --name ${{ github.event.repository.name }}-v${{ vars.MAJOR_VERSION }} \
+              --memory="32m" \
               --volume ${{ secrets.HOME }}/logs/${{ github.event.repository.name }}:/var/log/${{ github.event.repository.name }} \
               --volume ${{ secrets.HOME }}/certs/valid-access-back:/etc/ssl/certs/valid-access-back \
               --restart unless-stopped \
@@ -97,8 +98,9 @@ jobs:
             docker run -d \
               --name ${{ github.event.repository.name }}-v${{ vars.MAJOR_VERSION }}-doc \
               --network ${{ secrets.DOCKER_NETWORK }} \
+              --memory="48m" \
               --restart unless-stopped \
-              -e SWAGGER_JSON_URL=https://secret.skvdmt.ru/api/secret/v${{ vars.MAJOR_VERSION }}/openapi.yaml \
+              --env SWAGGER_JSON_URL=https://secret.skvdmt.ru/api/secret/v${{ vars.MAJOR_VERSION }}/openapi.yaml \
               docker.swagger.io/swaggerapi/swagger-ui
           EOF
       - name: Remove SSH key files.
