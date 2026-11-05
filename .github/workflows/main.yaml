@@ -83,6 +83,7 @@ jobs:
               --network ${{ secrets.DOCKER_NETWORK }} \
               --name ${{ github.event.repository.name }}-v${{ vars.MAJOR_VERSION }} \
               --memory="32m" \
+              --cpus="0.25" \
               --volume ${{ secrets.HOME }}/logs/${{ github.event.repository.name }}:/var/log/${{ github.event.repository.name }} \
               --volume ${{ secrets.HOME }}/certs/valid-access-back:/etc/ssl/certs/valid-access-back \
               --restart unless-stopped \
@@ -99,6 +100,7 @@ jobs:
               --name ${{ github.event.repository.name }}-v${{ vars.MAJOR_VERSION }}-doc \
               --network ${{ secrets.DOCKER_NETWORK }} \
               --memory="48m" \
+              --cpus="0.25" \
               --restart unless-stopped \
               --env SWAGGER_JSON_URL=https://secret.skvdmt.ru/api/secret/v${{ vars.MAJOR_VERSION }}/openapi.yaml \
               docker.swagger.io/swaggerapi/swagger-ui
